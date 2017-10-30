@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">CalorieCalculator</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="context_menu_add">Добавить в список съеденных продуктов</string>
+    <string name="context_menu_delete_from_base">Удалить из базы</string>
+    <string name="context_menu_update">Изменить</string>
+</resources>
