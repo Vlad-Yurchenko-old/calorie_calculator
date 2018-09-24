@@ -41,6 +41,8 @@
 
             <EditText
                 android:layout_weight="0.5"
+                android:ems="10"
+                android:inputType="number"
                 android:id="@+id/update_edit_product_kkal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -64,6 +66,8 @@
 
             <EditText
                 android:layout_weight="0.5"
+                android:ems="10"
+                android:inputType="number"
                 android:id="@+id/update_edit_product_prot"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -87,6 +91,8 @@
 
             <EditText
                 android:layout_weight="0.5"
+                android:ems="10"
+                android:inputType="number"
                 android:id="@+id/update_edit_product_fats"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
@@ -110,6 +116,8 @@
 
             <EditText
                 android:layout_weight="0.5"
+                android:ems="10"
+                android:inputType="number"
                 android:id="@+id/update_edit_product_carbon"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />

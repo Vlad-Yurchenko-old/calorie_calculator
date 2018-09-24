@@ -22,8 +22,11 @@ import com.example.homeinc.caloriecalculator.adapters.CurrentMenuAdapter;
 import com.example.homeinc.caloriecalculator.domain.CurrentMenuItem;
 import com.example.homeinc.caloriecalculator.domain.Product;
 import com.example.homeinc.caloriecalculator.fragment_dialogs.UpdateMenuItem;
+import com.example.homeinc.caloriecalculator.sqlite.MenuProductDao;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class CalculatorFragment extends Fragment {
 
@@ -38,53 +41,58 @@ public class CalculatorFragment extends Fragment {
     private ListView listView;
     private TextView currentSum;
 
+    private MenuProductDao menuProductDao;
+
     private static ArrayList<CurrentMenuItem> products;
 
-
-    public void addProduct(Product product, int number){
-        CurrentMenuItem menuItem = new CurrentMenuItem(product, number);
+    public void addProduct(Product product, int number) {
+        CurrentMenuItem menuItem = new CurrentMenuItem(product, getCurrentDateString(), number);
         products.add(menuItem);
         updateCaculator(products);
         calculateCurrentSum();
+        menuProductDao.create(menuItem);
     }
 
-    public void clearCurrentMenu(){
+    public void clearCurrentMenu() {
         products.clear();
         updateCaculator(products);
         calculateCurrentSum();
     }
 
-    public void updateProduct(CurrentMenuItem item){
-        for(CurrentMenuItem curItem: products){
-            if(curItem.product.getName() == item.product.getName() && curItem.product.getKkal() == item.product.getKkal()){
+    public void updateProduct(CurrentMenuItem item) {
+        for (CurrentMenuItem curItem : products) {
+            if (curItem.product.getName().compareTo(item.product.getName()) == 0 && curItem.product.getKkal() == item.product.getKkal()) {
                 curItem = item;
             }
         }
         updateCaculator(products);
+        menuProductDao.update(item);
         calculateCurrentSum();
     }
 
-    public void removeProduct(CurrentMenuItem item){
-        products.remove(item);
-        updateCaculator(products);
-        calculateCurrentSum();
-    }
-
-    public void removeProduct(int id){
+    public void removeProduct(int id) {
+        CurrentMenuItem currentMenuItem = products.get(id);
+        menuProductDao.delete(currentMenuItem.product.getId());
         products.remove(id);
         updateCaculator(products);
         calculateCurrentSum();
     }
 
-    public void calculateCurrentSum(){
+    private String getCurrentDateString() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date currentDate = new Date();
+        return dateFormat.format(currentDate);
+    }
+
+    public void calculateCurrentSum() {
         int sum = 0;
-        for(CurrentMenuItem temp: products){
-            sum += temp.product.getKkal()*temp.number/100;
+        for (CurrentMenuItem temp : products) {
+            sum += temp.product.getKkal() * temp.number / 100;
         }
         currentSum.setText("Итого : " + sum + " ккал.");
     }
 
-    public void updateCaculator(ArrayList<CurrentMenuItem> productsTemp){
+    public void updateCaculator(ArrayList<CurrentMenuItem> productsTemp) {
         products = productsTemp;
         adapter.setProducts(products);
         adapter.notifyDataSetChanged();
@@ -95,6 +103,7 @@ public class CalculatorFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         context = getActivity().getApplicationContext();
+        menuProductDao = new MenuProductDao(context);
         setHasOptionsMenu(true);//?
     }
 
@@ -106,6 +115,14 @@ public class CalculatorFragment extends Fragment {
         registerForContextMenu(listView);
 
         products = new ArrayList<>();
+        ArrayList<CurrentMenuItem> db = menuProductDao.readAll();
+        String date = getCurrentDateString();
+        for(CurrentMenuItem currentMenuItem: db){
+            if(date.compareTo(currentMenuItem.date)==0){
+                products.add(currentMenuItem);
+            }
+        }
+
         adapter = new CurrentMenuAdapter(context, products);
 
         currentSum = (TextView) view.findViewById(R.id.currentSum);
@@ -128,6 +145,7 @@ public class CalculatorFragment extends Fragment {
             }
         });
 
+        calculateCurrentSum();
         return view;
     }
 
@@ -144,7 +162,7 @@ public class CalculatorFragment extends Fragment {
         switch (item.getItemId()) {
 
             case R.id.context_current_menu_item_update:
-                Toast.makeText(context, "Еще в разработке", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(context, "Еще в разработке", Toast.LENGTH_SHORT).show();
                 UpdateMenuItem updateMenuItem = new UpdateMenuItem();
                 updateMenuItem.setProduct(products.get(info.position));
                 updateMenuItem.show(getFragmentManager(), "custom");

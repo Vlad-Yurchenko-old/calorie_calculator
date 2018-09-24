@@ -49,10 +49,10 @@ public class ProductListAdapter extends BaseAdapter {
     public View getView(int position, View convertView, ViewGroup parent) {
         View v = View.inflate(context, R.layout.item_list_products ,null);
         ((TextView) v.findViewById(R.id.item_list_products_name)).setText(recipes.get(position).getName());
-        ((TextView) v.findViewById(R.id.item_list_products_kkal)).setText(String.valueOf(recipes.get(position).getKkal()));
+        ((TextView) v.findViewById(R.id.item_list_products_kkal)).setText(String.valueOf(recipes.get(position).getKkal())  + " (ккал.)");
         ((TextView) v.findViewById(R.id.item_list_products_bju)).setText(String.valueOf(recipes.get(position).getProteins())
-                                                                            + ", " + String.valueOf(recipes.get(position).getFats())
-                                                                            + ", " + String.valueOf(recipes.get(position).getCarbohydrates()));
+                                                                            + "; " + String.valueOf(recipes.get(position).getFats())
+                                                                            + "; " + String.valueOf(recipes.get(position).getCarbohydrates()) + " (БЖУ)");
 
         v.setTag(recipes.get(position).getId());
         return v;

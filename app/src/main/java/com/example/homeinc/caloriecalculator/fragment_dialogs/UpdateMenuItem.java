@@ -15,11 +15,6 @@ import android.widget.TextView;
 import com.example.homeinc.caloriecalculator.MyContextApplication;
 import com.example.homeinc.caloriecalculator.R;
 import com.example.homeinc.caloriecalculator.domain.CurrentMenuItem;
-import com.example.homeinc.caloriecalculator.domain.Product;
-import com.example.homeinc.caloriecalculator.sqlite.ProductDao;
-import com.example.homeinc.caloriecalculator.tabLayout.fragments.ListFragment;
-
-import java.util.ArrayList;
 
 public class UpdateMenuItem extends DialogFragment {
 

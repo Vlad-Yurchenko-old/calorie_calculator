@@ -4,16 +4,16 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_calculator"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Текущее меню" />
         <item
             android:id="@+id/nav_product_list"
-            android:icon="@drawable/ic_menu_gallery"
             android:title="Список продуктов" />
         <item
             android:id="@+id/nav_clear"
-            android:icon="@drawable/ic_menu_camera"
             android:title="Очистить текущее меню"/>
+        <item
+            android:id="@+id/nav_stat"
+            android:title="График каллорий"/>
     </group>
 
     <!--<item android:title="Communicate">

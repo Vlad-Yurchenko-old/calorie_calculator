@@ -123,6 +123,7 @@ public class ListFragment extends Fragment{
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+        products = adapter.getRecipes();
         switch (item.getItemId()) {
 
             case R.id.context_menu_add:

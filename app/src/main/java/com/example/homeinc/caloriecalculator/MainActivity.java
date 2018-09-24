@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.example.homeinc.caloriecalculator.domain.Product;
+import com.example.homeinc.caloriecalculator.fragment_dialogs.StatFragmentDialog;
 import com.example.homeinc.caloriecalculator.sqlite.ProductDao;
 import com.example.homeinc.caloriecalculator.tabLayout.TabsPagerFragmentAdapter;
 
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity
         * Работа с БД
         * */
         ProductDao productDao = new ProductDao(this);
-        ArrayList<Product> products = productDao.readAll();
+        //ArrayList<Product> products = productDao.readAll();
     }
 
     @Override
@@ -75,9 +76,9 @@ public class MainActivity extends AppCompatActivity
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         } else {
-        super.onBackPressed();
+            super.onBackPressed();
+        }
     }
-}
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -99,6 +100,9 @@ public class MainActivity extends AppCompatActivity
             viewPager.setCurrentItem(1);
         } else if (id == R.id.nav_clear) {
             MyContextApplication.calculatorFragment.clearCurrentMenu();
+        } else if (id == R.id.nav_stat) {
+            StatFragmentDialog statFragmentDialog = new StatFragmentDialog();
+            statFragmentDialog.show(getSupportFragmentManager() ,"custom");
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);

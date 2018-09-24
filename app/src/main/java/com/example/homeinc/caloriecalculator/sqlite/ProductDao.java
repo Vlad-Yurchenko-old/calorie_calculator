@@ -23,6 +23,7 @@ public class ProductDao {
     public ProductDao(Context context) {
         this.context = context;
         dbHelper = new DBHelper(context);
+        dbHelper = new DBHelper(context);
         sqLiteDatabase = dbHelper.getWritableDatabase();
     }
 
